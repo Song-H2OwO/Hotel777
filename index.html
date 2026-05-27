@@ -314,41 +314,123 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
 /* ════════════════════════════════════
    SLOT MACHINE
 ════════════════════════════════════ */
-#s-roulette{background:linear-gradient(160deg,#130820,#220a14,#091508);align-items:center;justify-content:center}
-#s-roulette::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 40%,rgba(232,160,48,.07),transparent 70%)}
-.slot-wrap{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;padding:0 18px}
-.slot-eye{font-size:10px;font-weight:600;letter-spacing:2.5px;color:rgba(232,160,48,.85);text-transform:uppercase;margin-bottom:5px}
-.slot-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:20px;letter-spacing:-.3px}
-.slot-title em{font-style:normal;color:var(--gold-lt)}
+#s-roulette{
+  background:linear-gradient(160deg,#130820,#220a14,#091508);
+  align-items:center;
+  justify-content:center;
+}
+
+#s-roulette::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 80% 50% at 50% 40%,rgba(232,160,48,.07),transparent 70%);
+}
+
+.slot-wrap{
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:100%;
+  padding:0 14px;
+}
+
+.slot-eye{
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:2.5px;
+  color:rgba(232,160,48,.85);
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+
+.slot-title{
+  font-size:22px;
+  font-weight:700;
+  color:#fff;
+  margin-bottom:18px;
+  letter-spacing:-.3px;
+}
+
+.slot-title em{
+  font-style:normal;
+  color:var(--gold-lt);
+}
+
+/* 슬롯머신 + 상품목록 전체 배치 */
+.slot-stage{
+  width:100%;
+  max-width:470px;
+  display:flex;
+  align-items:stretch;
+  justify-content:center;
+  gap:10px;
+}
 
 /* 머신 본체 */
 .slot-machine{
-  width:100%;max-width:330px;
+  flex:1;
+  min-width:0;
+  width:100%;
+  max-width:330px;
   background:linear-gradient(145deg,#c07010,#e8a030,#f5c842,#e8a030,#b06010);
-  border-radius:22px;padding:4px;
+  border-radius:22px;
+  padding:4px;
   box-shadow:0 8px 40px rgba(0,0,0,.7),0 0 0 2px rgba(255,200,60,.25),inset 0 1px 0 rgba(255,255,255,.25);
 }
-.slot-machine-inner{background:linear-gradient(155deg,#150920,#0a0514);border-radius:19px;padding:18px 18px 22px}
+
+.slot-machine-inner{
+  background:linear-gradient(155deg,#150920,#0a0514);
+  border-radius:19px;
+  padding:18px 18px 22px;
+}
 
 /* 상단 장식 */
-.slot-top-deco{display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:14px}
-.slot-star{color:var(--gold-lt);font-size:13px;animation:blink 2s ease-in-out infinite}
+.slot-top-deco{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  margin-bottom:14px;
+}
+
+.slot-star{
+  color:var(--gold-lt);
+  font-size:13px;
+  animation:blink 2s ease-in-out infinite;
+}
+
 .slot-star:nth-child(3){animation-delay:.3s}
 .slot-star:nth-child(5){animation-delay:.6s}
-.slot-brand{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold-lt);text-transform:uppercase}
+
+.slot-brand{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:2px;
+  color:var(--gold-lt);
+  text-transform:uppercase;
+}
 
 /* ── 릴 영역 ── */
 .slot-reels-wrap{
-  background:#080412;border:2px solid rgba(232,160,48,.35);
-  border-radius:12px;padding:5px;margin-bottom:14px;
+  background:#080412;
+  border:2px solid rgba(232,160,48,.35);
+  border-radius:12px;
+  padding:5px;
+  margin-bottom:14px;
   box-shadow:inset 0 2px 16px rgba(0,0,0,.9);
 }
-.slot-reels{display:flex;gap:5px}
 
-/* 개별 릴: 딱 1개 심볼(90px) 높이만 보임 */
+.slot-reels{
+  display:flex;
+  gap:5px;
+}
+
 .slot-reel{
   flex:1;
-  height:90px;          /* 보이는 창: 심볼 1개 */
+  height:90px;
   overflow:hidden;
   border-radius:8px;
   background:#0a0516;
@@ -356,63 +438,301 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
   box-shadow:inset 0 0 14px rgba(0,0,0,.8);
   position:relative;
 }
-/* 상하 그라데이션 마스크로 경계 부드럽게 */
+
 .slot-reel::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:24px;
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:24px;
   background:linear-gradient(to bottom,rgba(10,5,22,.96),transparent);
-  z-index:4;pointer-events:none;
+  z-index:4;
+  pointer-events:none;
 }
+
 .slot-reel::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:24px;
+  content:'';
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:24px;
   background:linear-gradient(to top,rgba(10,5,22,.96),transparent);
-  z-index:4;pointer-events:none;
+  z-index:4;
+  pointer-events:none;
 }
-/* 선택 라인 (중앙 강조) */
+
 .reel-select-line{
-  position:absolute;top:0;left:0;right:0;bottom:0;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
   border-top:1.5px solid rgba(232,160,48,.5);
   border-bottom:1.5px solid rgba(232,160,48,.5);
   background:rgba(232,160,48,.04);
-  z-index:3;pointer-events:none;
+  z-index:3;
+  pointer-events:none;
 }
 
-/* 릴 내부 스크롤 컨테이너 */
 .reel-track{
-  display:flex;flex-direction:column;
+  display:flex;
+  flex-direction:column;
   will-change:transform;
-  /* 초기 위치는 JS에서 설정 */
 }
-.reel-item{
-  width:100%;height:90px;flex-shrink:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-}
-.reel-icon{
-  font-size:30px;line-height:1;
-  /* 이미지 교체: <img src="아이콘.png" style="width:36px;height:36px;object-fit:contain"> */
-}
-.reel-name{font-size:8.5px;font-weight:600;color:rgba(255,255,255,.65);letter-spacing:.3px;text-align:center;max-width:76px;line-height:1.2}
 
-/* 당첨 라인 */
-.slot-winline{height:3px;background:transparent;border-radius:2px;margin:0 5px 12px;transition:background .4s}
-.slot-winline.win{background:linear-gradient(to right,transparent,var(--gold-lt),transparent);animation:wlp .5s ease infinite alternate}
+.reel-item{
+  width:100%;
+  height:90px;
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+}
+
+.reel-icon{
+  font-size:30px;
+  line-height:1;
+}
+
+.reel-name{
+  font-size:8.5px;
+  font-weight:600;
+  color:rgba(255,255,255,.65);
+  letter-spacing:.3px;
+  text-align:center;
+  max-width:76px;
+  line-height:1.2;
+}
+
+.slot-winline{
+  height:3px;
+  background:transparent;
+  border-radius:2px;
+  margin:0 5px 12px;
+  transition:background .4s;
+}
+
+.slot-winline.win{
+  background:linear-gradient(to right,transparent,var(--gold-lt),transparent);
+  animation:wlp .5s ease infinite alternate;
+}
+
 @keyframes wlp{from{opacity:.6}to{opacity:1}}
 
-/* 결과 텍스트 */
-.slot-result-txt{font-size:13px;font-weight:600;color:rgba(255,255,255,.65);min-height:20px;text-align:center;margin-bottom:14px;transition:color .3s}
+.slot-result-txt{
+  font-size:13px;
+  font-weight:600;
+  color:rgba(255,255,255,.65);
+  min-height:20px;
+  text-align:center;
+  margin-bottom:14px;
+  transition:color .3s;
+}
+
 .slot-result-txt.win{color:var(--gold-lt)}
 
-/* 버튼 */
-.slot-btn-row{display:flex;justify-content:center}
+.slot-btn-row{
+  display:flex;
+  justify-content:center;
+}
+
 .slot-pull-btn{
-  width:68px;height:68px;border-radius:50%;border:none;cursor:pointer;
+  width:68px;
+  height:68px;
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
   background:radial-gradient(circle at 35% 30%,#ff5f5f,#cc0f0f 60%,#880000);
   box-shadow:0 5px 0 #550000,0 7px 18px rgba(200,0,0,.55),inset 0 2px 4px rgba(255,140,140,.3);
-  position:relative;transition:all .1s;display:flex;align-items:center;justify-content:center;
+  position:relative;
+  transition:all .1s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-.slot-pull-btn::before{content:'';position:absolute;inset:7px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.25),transparent 60%)}
-.slot-pull-btn:active{transform:translateY(4px);box-shadow:0 1px 0 #550000,0 3px 8px rgba(200,0,0,.4)}
-.slot-pull-btn:disabled{background:radial-gradient(circle at 35% 30%,#555,#2a2a2a);box-shadow:0 3px 0 #111;cursor:default}
-.slot-pull-ico{font-size:22px;position:relative;z-index:1}
+
+.slot-pull-btn::before{
+  content:'';
+  position:absolute;
+  inset:7px;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.25),transparent 60%);
+}
+
+.slot-pull-btn:active{
+  transform:translateY(4px);
+  box-shadow:0 1px 0 #550000,0 3px 8px rgba(200,0,0,.4);
+}
+
+.slot-pull-btn:disabled{
+  background:radial-gradient(circle at 35% 30%,#555,#2a2a2a);
+  box-shadow:0 3px 0 #111;
+  cursor:default;
+}
+
+.slot-pull-ico{
+  font-size:22px;
+  position:relative;
+  z-index:1;
+}
+
+/* ════════════════════════════════════
+   SLOT PRIZE LIST
+   - 슬롯머신 바깥 오른쪽 배치
+   - 슬롯머신과 같은 금색 프레임 디자인
+════════════════════════════════════ */
+.slot-prize-panel{
+  width:118px;
+  flex-shrink:0;
+  background:linear-gradient(145deg,#c07010,#e8a030,#f5c842,#e8a030,#b06010);
+  border-radius:22px;
+  padding:4px;
+  box-shadow:
+    0 8px 40px rgba(0,0,0,.55),
+    0 0 0 2px rgba(255,200,60,.22),
+    inset 0 1px 0 rgba(255,255,255,.25);
+}
+
+.slot-prize-inner{
+  height:100%;
+  border-radius:19px;
+  padding:14px 10px 12px;
+  background:linear-gradient(155deg,#150920,#0a0514);
+  display:flex;
+  flex-direction:column;
+}
+
+.slot-prize-head{
+  margin-bottom:10px;
+  text-align:left;
+}
+
+.slot-prize-head span{
+  display:block;
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:1.4px;
+  color:rgba(232,160,48,.68);
+  margin-bottom:3px;
+}
+
+.slot-prize-head strong{
+  display:block;
+  font-size:12px;
+  font-weight:800;
+  color:#fff;
+}
+
+.slot-prize-list{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.slot-prize-item{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  min-height:44px;
+  padding:8px 7px;
+  border-radius:12px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(232,160,48,.16);
+  overflow:hidden;
+  transition:opacity .25s, filter .25s, transform .25s, box-shadow .25s;
+}
+
+.slot-prize-rank{
+  font-size:9px;
+  font-weight:800;
+  color:var(--gold-lt);
+  line-height:1;
+}
+
+.slot-prize-name{
+  font-size:10.5px;
+  font-weight:700;
+  color:rgba(255,255,255,.88);
+  line-height:1.25;
+  word-break:keep-all;
+}
+
+.slot-prize-item.available{opacity:1}
+
+.slot-prize-item.soldout{
+  opacity:.34;
+  filter:grayscale(1);
+}
+
+.slot-prize-item.soldout::after{
+  content:'SOLD OUT';
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) rotate(-12deg);
+  padding:3px 7px;
+  border-radius:999px;
+  background:rgba(0,0,0,.76);
+  border:1px solid rgba(255,255,255,.18);
+  color:rgba(255,255,255,.92);
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.8px;
+  white-space:nowrap;
+}
+
+.slot-prize-item.hit{
+  border-color:rgba(245,200,66,.85);
+  background:rgba(245,200,66,.16);
+  box-shadow:0 0 0 2px rgba(245,200,66,.12);
+}
+
+@media(max-width:430px){
+  .slot-stage{
+    max-width:330px;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+
+  .slot-machine{max-width:330px}
+
+  .slot-prize-panel{
+    width:100%;
+    max-width:330px;
+  }
+
+  .slot-prize-inner{padding:12px 10px}
+
+  .slot-prize-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:8px;
+  }
+
+  .slot-prize-list{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:6px;
+  }
+
+  .slot-prize-item{
+    min-height:54px;
+    padding:7px 5px;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+
+  .slot-prize-rank{font-size:8.5px}
+  .slot-prize-name{font-size:9px;line-height:1.2}
+}
 
 /* ════════════════════════════════════
    WIN
@@ -657,41 +977,79 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
     <div class="slot-eye">✦ Lucky Slots ✦</div>
     <div class="slot-title">행운을 <em>당겨보세요!</em></div>
 
-    <div class="slot-machine">
-      <div class="slot-machine-inner">
-        <div class="slot-top-deco">
-          <span class="slot-star">★</span>
-          <span class="slot-brand">7 · 7 · 7</span>
-          <span class="slot-star">★</span>
-          <span class="slot-brand">Lucky Slots</span>
-          <span class="slot-star">★</span>
-        </div>
+    <div class="slot-stage">
+      <div class="slot-machine">
+        <div class="slot-machine-inner">
+          <div class="slot-top-deco">
+            <span class="slot-star">★</span>
+            <span class="slot-brand">7 · 7 · 7</span>
+            <span class="slot-star">★</span>
+            <span class="slot-brand">Lucky Slots</span>
+            <span class="slot-star">★</span>
+          </div>
 
-        <!-- 릴 3개 -->
-        <div class="slot-reels-wrap">
-          <div class="slot-reels">
-            <div class="slot-reel">
-              <div class="reel-select-line"></div>
-              <div class="reel-track" id="reel-0"></div>
-            </div>
-            <div class="slot-reel">
-              <div class="reel-select-line"></div>
-              <div class="reel-track" id="reel-1"></div>
-            </div>
-            <div class="slot-reel">
-              <div class="reel-select-line"></div>
-              <div class="reel-track" id="reel-2"></div>
+          <!-- 릴 3개 -->
+          <div class="slot-reels-wrap">
+            <div class="slot-reels">
+              <div class="slot-reel">
+                <div class="reel-select-line"></div>
+                <div class="reel-track" id="reel-0"></div>
+              </div>
+              <div class="slot-reel">
+                <div class="reel-select-line"></div>
+                <div class="reel-track" id="reel-1"></div>
+              </div>
+              <div class="slot-reel">
+                <div class="reel-select-line"></div>
+                <div class="reel-track" id="reel-2"></div>
+              </div>
             </div>
           </div>
+
+          <div class="slot-winline" id="slot-winline"></div>
+          <div class="slot-result-txt" id="slot-result-txt">버튼을 눌러 행운을 시험하세요!</div>
+
+          <div class="slot-btn-row">
+            <button class="slot-pull-btn" id="slot-pull-btn" onclick="pullSlot()">
+              <span class="slot-pull-ico">🎯</span>
+            </button>
+          </div>
         </div>
+      </div>
 
-        <div class="slot-winline" id="slot-winline"></div>
-        <div class="slot-result-txt" id="slot-result-txt">버튼을 눌러 행운을 시험하세요!</div>
+      <div class="slot-prize-panel">
+        <div class="slot-prize-inner">
+          <div class="slot-prize-head">
+            <span>PRIZE LIST</span>
+            <strong>상품 목록</strong>
+          </div>
 
-        <div class="slot-btn-row">
-          <button class="slot-pull-btn" id="slot-pull-btn" onclick="pullSlot()">
-            <span class="slot-pull-ico">🎯</span>
-          </button>
+          <div class="slot-prize-list" id="slot-prize-list">
+            <div class="slot-prize-item available">
+              <span class="slot-prize-rank">1등</span>
+              <span class="slot-prize-name">로열 패키지</span>
+            </div>
+
+            <div class="slot-prize-item available">
+              <span class="slot-prize-rank">2등</span>
+              <span class="slot-prize-name">선케어 패키지</span>
+            </div>
+
+            <div class="slot-prize-item available">
+              <span class="slot-prize-rank">3등</span>
+              <span class="slot-prize-name">바디 패키지</span>
+            </div>
+
+            <div class="slot-prize-item available">
+              <span class="slot-prize-rank">4등</span>
+              <span class="slot-prize-name">쿨 패키지</span>
+            </div>
+
+            <div class="slot-prize-item soldout">
+              <span class="slot-prize-rank">5등</span>
+              <span class="slot-prize-name">커피 쿠폰</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -720,6 +1078,8 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
     <div class="goodbye-hotel">Holiday Inn Gwangju</div>
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 /* ══════════════════════════════════════
@@ -806,6 +1166,38 @@ function enterApp(){
 let mode='up', gState='idle', t0=null, rafId=null, elapsed=0;
 const TARGET=7770, TOL=100;
 let isSuccess=false;
+
+/* ══════════════════════════════════════
+   SUPABASE
+   관리자 페이지에서 쓴 Project URL / anon public key와 동일하게 입력
+══════════════════════════════════════ */
+const SUPABASE_URL = 'https://tlapdlzrzxsvpxxdvupg.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRsYXBkbHpyenhzdnB4eGR2dXBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NTA0NzQsImV4cCI6MjA5NTQyNjQ3NH0.t1jx4d6Mq5zILeeodXAhyE4AWJvHB6GSGvvtCcyEOCw';
+
+// Supabase 값이 아직 비어 있거나 잘못되어도 슬롯머신이 멈추지 않도록 안전 처리
+let db = null;
+let dbPrizes = [];
+
+function isSupabaseReady(){
+  return (
+    typeof supabase !== 'undefined' &&
+    SUPABASE_URL.startsWith('https://') &&
+    SUPABASE_URL.includes('.supabase.co') &&
+    !SUPABASE_ANON_KEY.includes('여기에_') &&
+    SUPABASE_ANON_KEY.length > 20
+  );
+}
+
+try{
+  if(isSupabaseReady()){
+    db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  } else {
+    console.warn('Supabase 설정이 아직 비어 있습니다. 상품 목록은 임시 데이터로 표시됩니다.');
+  }
+}catch(err){
+  console.error('Supabase 초기화 실패:', err);
+  db = null;
+}
 
 /* ══════════════════════════════════════
    PRIZES
@@ -926,6 +1318,183 @@ function handleResultAction(){
   else{ showScreen('s-roulette'); initSlot(); }
 }
 
+/* ══════════════════════════════════════
+   SLOT PRIZE LIST DB SYNC
+   stock === 0일 때만 soldout 클래스 적용
+══════════════════════════════════════ */
+async function loadSlotPrizeList(){
+  const list = document.getElementById('slot-prize-list');
+  if(!list) return [];
+
+  if(!db){
+    dbPrizes = [];
+    renderFallbackSlotPrizeList();
+    return [];
+  }
+
+  list.innerHTML = `
+    <div class="slot-prize-item available">
+      <span class="slot-prize-rank">LOAD</span>
+      <span class="slot-prize-name">상품 확인 중</span>
+    </div>
+  `;
+
+  try{
+    const { data, error } = await db
+      .from('prizes')
+      .select('id, rank, name, stock, enabled, image, description')
+      .eq('enabled', true)
+      .order('rank', { ascending:true });
+
+    if(error) throw error;
+
+    dbPrizes = data || [];
+    renderSlotPrizeList(dbPrizes);
+
+    console.log('[DB 상품 조회 성공]', dbPrizes);
+
+    return dbPrizes;
+  }catch(error){
+    console.error('[DB 상품 조회 실패]', error);
+
+    // 중요: 실패했으면 예전 재고 캐시 제거
+    dbPrizes = [];
+
+    list.innerHTML = `
+      <div class="slot-prize-item soldout">
+        <span class="slot-prize-rank">ERROR</span>
+        <span class="slot-prize-name">DB 오류</span>
+      </div>
+    `;
+
+    return [];
+  }
+}
+
+function renderFallbackSlotPrizeList(){
+  const fallbackItems = [
+    {rank:1, name:'로열 패키지', stock:1},
+    {rank:2, name:'선케어 패키지', stock:1},
+    {rank:3, name:'바디 패키지', stock:1},
+    {rank:4, name:'쿨 패키지', stock:1},
+    {rank:5, name:'커피 쿠폰', stock:1},
+  ];
+  renderSlotPrizeList(fallbackItems);
+}
+
+function renderSlotPrizeList(items){
+  const list = document.getElementById('slot-prize-list');
+  if(!list) return;
+
+  if(!items.length){
+    list.innerHTML = `
+      <div class="slot-prize-item soldout">
+        <span class="slot-prize-rank">EMPTY</span>
+        <span class="slot-prize-name">등록 상품 없음</span>
+      </div>
+    `;
+    return;
+  }
+
+  list.innerHTML = items.map(p=>{
+    const stock = Number(p.stock);
+    const safeStock = Number.isFinite(stock) ? stock : 0;
+    const statusClass = safeStock <= 0 ? 'soldout' : 'available';
+
+    return `
+      <div class="slot-prize-item ${statusClass}" data-prize-id="${escapeHtml(p.id)}" data-stock="${safeStock}">
+        <span class="slot-prize-rank">${escapeHtml(p.rank)}등</span>
+        <span class="slot-prize-name">${escapeHtml(p.name)}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+
+function getStaticPrizeByRank(rank){
+  return prizes[Number(rank) - 1] || prizes[4];
+}
+
+function mergeDbPrizeForSlot(dbPrize){
+  const rank = Number(dbPrize.rank);
+  const meta = getStaticPrizeByRank(rank);
+
+  return {
+    ...meta,
+    id:dbPrize.id,
+    rank:rank,
+    name:dbPrize.name || meta.name,
+    desc:dbPrize.description || meta.desc,
+    stock:Number(dbPrize.stock ?? 0),
+    enabled:dbPrize.enabled !== false
+  };
+}
+
+function getAvailableSlotPrizes(items = dbPrizes){
+  if(Array.isArray(items) && items.length){
+    return items
+      .filter(p=>{
+        const stock = Number(p.stock);
+        const enabled = p.enabled !== false;
+
+        return enabled && Number.isFinite(stock) && stock > 0;
+      })
+      .map(mergeDbPrizeForSlot);
+  }
+
+  return [];
+}
+
+async function claimSlotPrize(p){
+  // DB 설정 전이면 기존 룰렛처럼 화면만 진행
+  if(!db) return p;
+
+  let dbPrize = null;
+
+  if(p.id){
+    dbPrize = { id:p.id };
+  } else if(Array.isArray(dbPrizes) && dbPrizes.length){
+    dbPrize = dbPrizes.find(item=>Number(item.rank) === Number(p.rank));
+  }
+
+  if(!dbPrize || !dbPrize.id){
+    console.warn('당첨 상품의 DB id를 찾지 못했습니다:', p);
+    return p;
+  }
+
+  const { data, error } = await db.rpc('claim_prize', {
+    p_prize_id: dbPrize.id
+  });
+
+  if(error){
+    console.error('claim_prize error:', error);
+    throw error;
+  }
+
+  if(!data || !data.length){
+    return null;
+  }
+
+  return mergeDbPrizeForSlot(data[0]);
+}
+
+function markSlotPrizeHit(rank){
+  document.querySelectorAll('.slot-prize-item').forEach(el=>{
+    const txt = el.querySelector('.slot-prize-rank')?.textContent || '';
+    const itemRank = Number(txt.replace(/[^0-9]/g,''));
+    el.classList.toggle('hit', itemRank === Number(rank));
+  });
+}
+
+function escapeHtml(str){
+  return String(str ?? '')
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'",'&#039;');
+}
+
 /* ══════════════════════════════════════════════
    SLOT MACHINE — 릴 사라짐 버그 완전 수정
    
@@ -978,6 +1547,9 @@ function initSlot(){
   document.getElementById('slot-result-txt').className = 'slot-result-txt';
   document.getElementById('slot-winline').className = 'slot-winline';
 
+  // 2단계: 룰렛 화면 진입 시 DB 재고를 상품 목록에 반영
+  loadSlotPrizeList();
+
   for(let r=0;r<3;r++){
     buildReelDOM(r);
     // 초기 위치: 1번째 심볼이 보이도록 (translateY = 0)
@@ -985,18 +1557,49 @@ function initSlot(){
   }
 }
 
-function pullSlot(){
+async function pullSlot(){
   if(slotSpinning) return;
-  slotSpinning = true;
-  document.getElementById('slot-pull-btn').disabled = true;
-  document.getElementById('slot-result-txt').textContent = '🎰 돌아가는 중...';
-  document.getElementById('slot-result-txt').className = 'slot-result-txt';
-  document.getElementById('slot-winline').className = 'slot-winline';
 
-  // 확률 기반 당첨 결정
-  const rand=Math.random(); let cum=0, wi=0;
-  for(let i=0;i<prizes.length;i++){ cum+=prizes[i].prob; if(rand<=cum){wi=i;break;} }
-  const wonPrize = prizes[wi];
+  slotSpinning = true;
+
+  const pullBtn = document.getElementById('slot-pull-btn');
+  const resultTxt = document.getElementById('slot-result-txt');
+  const winline = document.getElementById('slot-winline');
+
+  pullBtn.disabled = true;
+  resultTxt.textContent = '상품 재고 확인 중...';
+  resultTxt.className = 'slot-result-txt';
+  winline.className = 'slot-winline';
+
+  // 핵심: 돌리기 직전에 최신 DB 재고를 반드시 다시 조회
+  const latestPrizes = await loadSlotPrizeList();
+  const candidatePrizes = getAvailableSlotPrizes(latestPrizes);
+
+  console.log('[룰렛 후보 상품]', candidatePrizes);
+
+  if(!candidatePrizes.length){
+    slotSpinning = false;
+    pullBtn.disabled = false;
+    resultTxt.textContent = '현재 남은 상품이 없습니다.';
+    resultTxt.className = 'slot-result-txt';
+    return;
+  }
+
+  resultTxt.textContent = '🎰 돌아가는 중...';
+
+  const totalProb = candidatePrizes.reduce((sum,p)=>sum + Number(p.prob || 0), 0);
+  const rand = Math.random() * (totalProb > 0 ? totalProb : candidatePrizes.length);
+  let cum = 0;
+  let wonPrize = candidatePrizes[candidatePrizes.length - 1];
+
+  for(const item of candidatePrizes){
+    cum += totalProb > 0 ? Number(item.prob || 0) : 1;
+    if(rand <= cum){
+      wonPrize = item;
+      break;
+    }
+  }
+
   const targetSym = wonPrize.sym;
 
   const reelDurations = [2600, 3300, 4000];
@@ -1064,17 +1667,45 @@ function pullSlot(){
 }
 
 function showSlotResult(p){
-  document.getElementById('slot-result-txt').textContent = `🎊 ${p.name} 당첨!`;
-  document.getElementById('slot-result-txt').className = 'slot-result-txt win';
+  const resultTxt = document.getElementById('slot-result-txt');
+  const pullBtn = document.getElementById('slot-pull-btn');
+
+  resultTxt.textContent = `🎊 ${p.name} 당첨! 재고 확인 중...`;
+  resultTxt.className = 'slot-result-txt win';
   document.getElementById('slot-winline').className = 'slot-winline win';
   if(navigator.vibrate) navigator.vibrate([80,40,80,40,120]);
-  setTimeout(()=>revealWin(p), 1800);
+
+  claimSlotPrize(p)
+    .then(async claimedPrize=>{
+      if(!claimedPrize){
+        resultTxt.textContent = '방금 재고가 소진되었습니다. 다시 돌려주세요.';
+        resultTxt.className = 'slot-result-txt';
+        document.getElementById('slot-winline').className = 'slot-winline';
+        pullBtn.disabled = false;
+        await loadSlotPrizeList();
+        return;
+      }
+
+      resultTxt.textContent = `🎊 ${claimedPrize.name} 당첨!`;
+      await loadSlotPrizeList();
+      markSlotPrizeHit(claimedPrize.rank);
+
+      setTimeout(()=>revealWin(claimedPrize), 1800);
+    })
+    .catch(async error=>{
+      console.error('slot claim failed:', error);
+      resultTxt.textContent = '재고 차감 중 오류가 발생했습니다. 직원에게 문의해주세요.';
+      resultTxt.className = 'slot-result-txt';
+      document.getElementById('slot-winline').className = 'slot-winline';
+      pullBtn.disabled = false;
+      await loadSlotPrizeList();
+    });
 }
 function revealWin(p){
   showScreen('s-win');
   document.getElementById('win-ring').textContent = p.icon||'🎉';
   document.getElementById('win-prize').textContent = p.name;
-  document.getElementById('win-desc').textContent = p.desc+'\n직원에게 이 화면을 보여주세요.';
+  document.getElementById('win-desc').textContent = (p.desc || p.description || '축하합니다.')+'\n직원에게 이 화면을 보여주세요.';
   launchConfetti('cf-wrap-win');
 }
 
