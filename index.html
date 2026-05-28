@@ -1235,40 +1235,55 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
 
 
 
+
+
 /* ════════════════════════════════════
-   MOBILE INTRO RULE + MAIN SCROLL END PATCH
-   - 모바일에서 인트로 중앙선이 위로 치우쳐 보이는 문제 보정
-   - 메인 선택창 하단 버튼 이후 불필요한 추가 스크롤 최소화
+   FINAL CONSOLIDATED MOBILE LAYOUT PATCH
+   - 인트로 가로선 위치를 한 값으로 고정
+   - 게임선택창 하단 버튼 뒤 추가 스크롤 제거
 ════════════════════════════════════ */
 
-/* 폰에서만 중앙선을 살짝 아래로 내림. 태블릿/데스크톱은 기존 위치 유지 */
-@media(max-width:480px){
-  .intro-rule{
-    top:43%;
-  }
+/* 인트로 가로선: 기기별로 따로 움직이지 않게 단일 기준값 사용 */
+.intro-rule{
+  top:41.5%;
 }
 
-@media(max-width:390px){
-  .intro-rule{
-    top:48%;
-  }
+/* 인트로 텍스트/하단영역 위치는 기존 디자인 유지, 수치만 고정 */
+.intro-slide{
+  padding:0 8vw 20vh;
 }
 
-/* 메인 선택창: 맨 아래에서 버튼 이후로 남는 스크롤 여백 제거 */
+.intro-bottom-left{
+  bottom:24vh;
+}
+
+#intro-enter-wrap{
+  bottom:clamp(36px, 7vh, 68px);
+}
+
+/* 게임선택창: 화면 자체는 스크롤되되, 버튼 뒤로 남는 과스크롤/여백 제거 */
 #s-main{
+  height:100dvh;
+  min-height:100dvh;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
   overscroll-behavior-y:none;
   scroll-padding-bottom:0;
 }
 
 #s-main .main-scroll{
+  overflow:visible;
   padding-bottom:0;
   margin-bottom:0;
 }
 
+/* sticky를 끄면 버튼 이후로 더 밀려 내려가는 여백이 사라짐 */
 #s-main .cta-wrap{
-  bottom:0;
+  position:relative;
+  bottom:auto;
   margin-bottom:0;
-  padding:10px 16px 12px;
+  padding:10px 16px calc(12px + env(safe-area-inset-bottom));
 }
 
 #s-main .cta-btn{
@@ -1276,11 +1291,54 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
 }
 
 @media(max-height:700px){
+  .intro-slide{
+    padding-bottom:18vh;
+  }
+
+  .intro-bottom-left{
+    bottom:21vh;
+  }
+
   #s-main .cta-wrap{
-    padding:8px 16px 10px;
+    padding:8px 16px calc(10px + env(safe-area-inset-bottom));
   }
 }
 
+
+
+/* ════════════════════════════════════
+   INTRO RULE FINAL FIX
+   - 가로선을 화면 기준이 아니라 제목 기준으로 고정
+   - 기존 .intro-rule 위치값은 무시
+════════════════════════════════════ */
+
+.intro-rule{
+  display:none !important;
+}
+
+.intro-big{
+  position:relative;
+  display:inline-block;
+  z-index:1;
+}
+
+.intro-big::before{
+  content:'';
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(92vw, 720px);
+  height:1px;
+  transform:translate(-50%, -50%);
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(170,223,90,.55),
+    transparent
+  );
+  z-index:-1;
+  pointer-events:none;
+}
 
 </style>
 </head>
