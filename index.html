@@ -1396,6 +1396,29 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
   filter:drop-shadow(0 4px 14px rgba(170,223,90,.45));
 }
 
+
+/* ════════════════════════════════════
+   INTRO START BUTTON CLICK GUARD
+   - TAP TO START 버튼이 보이기 전에는 클릭/터치 불가
+   - 기존 첫화면 배치/디자인은 변경하지 않음
+════════════════════════════════════ */
+#intro-enter-wrap{
+  pointer-events:none !important;
+}
+
+#intro-enter-btn{
+  pointer-events:none !important;
+}
+
+#intro-enter-wrap.visible{
+  pointer-events:auto !important;
+}
+
+#intro-enter-wrap.visible #intro-enter-btn{
+  pointer-events:auto !important;
+  touch-action:manipulation;
+}
+
 </style>
 </head>
 <body>
@@ -1458,7 +1481,7 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
 
   <!-- ③ TAP TO START — 슬라이드 끝나면 같은 화면 위에 등장 (화면전환 없음) -->
   <div id="intro-enter-wrap">
-    <button id="intro-enter-btn" onclick="enterApp()">TAP TO START</button>
+    <button id="intro-enter-btn" onclick="enterApp(event)">TAP TO START</button>
     <p class="enter-hint-txt">터치해서 시작하기</p>
   </div>
 </div>
@@ -1786,7 +1809,15 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
 
 // 커튼 닫히며 메인으로 — index.html enterApp() 방식
 let enterLock = false;
-function enterApp(){
+function enterApp(e){
+  if(e){
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  const enterWrap = document.getElementById('intro-enter-wrap');
+  if(!enterWrap || !enterWrap.classList.contains('visible')) return;
+
   if(enterLock) return;
   enterLock = true;
 
