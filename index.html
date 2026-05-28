@@ -903,6 +903,53 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
   }
 }
 
+
+
+/* ════════════════════════════════════
+   INTRO RULE BETWEEN TITLE LINES PATCH
+   - 기존 absolute 금선 숨김
+   - 금선을 큰 흰색 제목 1줄/2줄 사이에 고정
+════════════════════════════════════ */
+.intro-slide > .intro-rule{
+  display:none !important;
+}
+
+#s-intro .intro-big{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(6px, 1.3dvh, 12px);
+  line-height:1.04 !important;
+}
+
+#s-intro .intro-big .intro-title-line{
+  display:block;
+}
+
+#s-intro .intro-big .intro-rule-inline{
+  display:block;
+  width:58%;
+  max-width:420px;
+  height:1px;
+  flex-shrink:0;
+  background:linear-gradient(90deg,transparent,rgba(170,223,90,.65),transparent);
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform .9s .4s ease;
+}
+
+#s-intro .intro-slide.active .intro-big .intro-rule-inline{
+  transform:scaleX(1);
+}
+
+/* 금선과 글자 사이 간격 조절은 아래 gap 값만 변경 */
+@media(max-height:700px){
+  #s-intro .intro-big{
+    gap:clamp(4px, 1dvh, 8px);
+  }
+}
+
 </style>
 </head>
 <body>
@@ -924,21 +971,21 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
 <div class="intro-slide active" id="islide-0">
   <div class="intro-rule"></div>
   <p class="intro-kicker">Holiday Inn Gwangju</p>
-  <h2 class="intro-big">광주의 중심에서 만나는<br>편안한 휴식</h2>
+  <h2 class="intro-big"><span class="intro-title-line">광주의 중심에서 만나는</span><span class="intro-rule-inline"></span><span class="intro-title-line">편안한 휴식</span></h2>
   <p class="intro-slide-sub">Welcome to Your Stay</p>
 </div>
 
 <div class="intro-slide" id="islide-1">
   <div class="intro-rule"></div>
   <p class="intro-kicker">Holiday Inn Gwangju</p>
-  <h2 class="intro-big">머무는 순간마다<br>더 특별하게</h2>
+  <h2 class="intro-big"><span class="intro-title-line">머무는 순간마다</span><span class="intro-rule-inline"></span><span class="intro-title-line">더 특별하게</span></h2>
   <p class="intro-slide-sub">Making every stay more special</p>
 </div>
 
 <div class="intro-slide" id="islide-2">
   <div class="intro-rule"></div>
   <p class="intro-kicker">Holiday Inn Gwangju</p>
-  <h2 class="intro-big">편안한 하루의 시작<br>Holiday Inn Gwangju</h2>
+  <h2 class="intro-big"><span class="intro-title-line">편안한 하루의 시작</span><span class="intro-rule-inline"></span><span class="intro-title-line">Holiday Inn Gwangju</span></h2>
   <p class="intro-slide-sub">Start of a relaxing day</p>
 </div>
 
