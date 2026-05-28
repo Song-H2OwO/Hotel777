@@ -761,159 +761,147 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
 
 
 /* ════════════════════════════════════
-   INTRO MOBILE LAYOUT FIX
-   - 가운데 인트로 문구가 아래로 밀리지 않게 압축
-   - 왼쪽 하단 호텔 정보와 TAP TO START 겹침 방지
-   - 짧은 모바일 화면/가로 화면 대응
-════════════════════════════════════ */
-/* ════════════════════════════════════
-   INTRO FINAL RESPONSIVE LAYOUT
-   - px 대신 vh/vw/clamp 기반
-   - 가운데 문구 잘림 방지
-   - 호텔 정보와 TAP TO START 겹침 방지
+   INTRO RESPONSIVE POSITION PATCH
+   - 기존 디자인/애니메이션 유지
+   - 위치 관련 값만 보정
 ════════════════════════════════════ */
 
+/* 모바일 브라우저 주소창 변화 대응 */
+#s-intro{
+  height:100dvh;
+  min-height:100dvh;
+}
+
+/* 중앙 오버레이 문구: 기존 flex 구조 유지 */
 .intro-slide{
-  justify-content:center;
-  padding:0 8vw 20vh;
+  padding:0 clamp(28px, 8vw, 72px) clamp(150px, 20dvh, 230px);
 }
 
+/* 중앙 라인 위치만 살짝 위로 */
 .intro-rule{
-  top: 40%;
+  top:43%;
 }
 
+/* 중앙 문구 크기만 유동화 */
 .intro-big{
-  font-size:clamp(28px, 8.4vw, 54px);
+  font-size:clamp(30px, 7.4vw, 60px);
   line-height:1.12;
 }
 
 .intro-kicker{
-  font-size:clamp(8px, 2.2vw, 10px);
-  margin-bottom:clamp(10px, 2vh, 16px);
+  font-size:clamp(8px, 1.8vw, 10px);
+  margin-bottom:clamp(10px, 1.8dvh, 16px);
 }
 
 .intro-slide-sub{
-  font-size:clamp(8px, 2.2vw, 11px);
-  margin-top:clamp(8px, 1.8vh, 14px);
+  font-size:clamp(8px, 1.7vw, 11px);
+  margin-top:clamp(8px, 1.6dvh, 14px);
 }
 
+/* 호텔 정보: 버튼 위에 고정 */
 .intro-bottom-left{
-  left:8vw;
-  right:8vw;
-  bottom:24vh;
+  left:clamp(28px, 8vw, 72px);
+  right:clamp(28px, 8vw, 72px);
+  bottom:clamp(120px, 17dvh, 170px);
 }
 
 .intro-chip{
-  font-size:clamp(8px, 2.1vw, 10px);
-  padding:clamp(4px, 1vh, 5px) clamp(10px, 3vw, 13px);
-  margin-bottom:clamp(10px, 2vh, 14px);
+  font-size:clamp(8px, 1.7vw, 10px);
+  padding:clamp(4px, .8dvh, 5px) clamp(10px, 2.2vw, 13px);
+  margin-bottom:clamp(9px, 1.5dvh, 14px);
 }
 
 .intro-hotel-name{
-  font-size:clamp(26px, 7.2vw, 40px);
+  font-size:clamp(26px, 6.2vw, 42px);
   line-height:1.08;
 }
 
 .intro-div{
-  margin:clamp(8px, 1.8vh, 12px) 0;
+  margin:clamp(8px, 1.5dvh, 12px) 0;
 }
 
 .intro-co-lbl{
-  font-size:clamp(8px, 2vw, 10px);
+  font-size:clamp(8px, 1.6vw, 10px);
 }
 
 .intro-co-name{
-  font-size:clamp(11px, 3vw, 14px);
+  font-size:clamp(11px, 2.1vw, 14px);
 }
 
+/* 시작 버튼: 기존 디자인 유지, 위치만 하단 고정 */
 #intro-enter-wrap{
-  bottom:clamp(24px, 6vh, 58px);
+  bottom:calc(env(safe-area-inset-bottom) + clamp(28px, 5.5dvh, 56px));
 }
 
 #intro-enter-btn{
-  width:min(68vw, 360px);
-  padding:clamp(11px, 1.8vh, 15px) 0;
-  font-size:clamp(9px, 2.4vw, 11px);
-  letter-spacing:clamp(3px, 1.5vw, 6px);
+  width:auto;
+  min-width:min(72vw, 240px);
+  max-width:360px;
+  padding:clamp(12px, 1.7dvh, 14px) clamp(38px, 11vw, 52px);
+  font-size:clamp(9px, 1.8vw, 11px);
+  letter-spacing:clamp(3px, .9vw, 6px);
 }
 
 .enter-hint-txt{
-  font-size:clamp(8px, 2vw, 9px);
-  margin-top:clamp(7px, 1.5vh, 10px);
+  font-size:clamp(8px, 1.5vw, 9px);
+  margin-top:clamp(7px, 1.3dvh, 10px);
 }
 
-/* 짧은 모바일 화면 대응 */
+/* 세로가 짧은 폰 */
 @media(max-height:700px){
   .intro-slide{
-    padding-top:11vh;
-  }
-
-  .intro-rule{
-    top:27%;
-  }
-
-  .intro-big{
-    font-size:clamp(26px, 7.7vw, 44px);
-    line-height:1.08;
-  }
-
-  .intro-slide-sub{
-    margin-top:1.2vh;
+    padding-bottom:clamp(125px, 18dvh, 180px);
   }
 
   .intro-bottom-left{
-    bottom:15vh;
+    bottom:clamp(96px, 15dvh, 128px);
+  }
+
+  .intro-big{
+    font-size:clamp(26px, 6.4vw, 46px);
   }
 
   .intro-hotel-name{
-    font-size:clamp(23px, 6.6vw, 34px);
-  }
-
-  #intro-enter-wrap{
-    bottom:clamp(18px, 4.8vh, 38px);
-  }
-
-  #intro-enter-btn{
-    width:min(64vw, 320px);
-    padding:clamp(9px, 1.5vh, 12px) 0;
-  }
-}
-
-/* 가로로 짧은 화면 대응 */
-@media(max-height:560px){
-  .intro-slide{
-    padding-top:8vh;
-  }
-
-  .intro-rule{
-    top:23%;
-  }
-
-  .intro-big{
-    font-size:clamp(22px, 6vw, 34px);
-  }
-
-  .intro-bottom-left{
-    bottom:17vh;
+    font-size:clamp(23px, 5.4vw, 34px);
   }
 
   .intro-chip{
-    margin-bottom:6px;
-  }
-
-  .intro-hotel-name{
-    font-size:clamp(20px, 5.4vw, 28px);
+    margin-bottom:8px;
   }
 
   .intro-div{
-    margin:6px 0;
+    margin:8px 0;
   }
 
   #intro-enter-wrap{
-    bottom:3.8vh;
+    bottom:calc(env(safe-area-inset-bottom) + 24px);
   }
 }
 
+/* 작은 폭의 폰 */
+@media(max-width:390px){
+  .intro-bottom-left{
+    bottom:clamp(106px, 16dvh, 138px);
+  }
+
+  #intro-enter-btn{
+    min-width:220px;
+    padding-left:34px;
+    padding-right:34px;
+  }
+}
+
+/* 모니터/태블릿에서 너무 퍼지지 않게 */
+@media(min-width:768px){
+  .intro-slide{
+    padding-left:80px;
+    padding-right:80px;
+  }
+
+  .intro-bottom-left{
+    max-width:540px;
+  }
+}
 
 </style>
 </head>
