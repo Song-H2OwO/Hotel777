@@ -1382,6 +1382,20 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
   }
 }
 
+
+/* ════════════════════════════════════
+   ROYAL SECRET PRIZE PATCH
+   - 목록/룰렛에서는 1등을 ??? / ❓로 표시
+   - 당첨 화면에서는 로열 패키지 + gift.png 표시
+════════════════════════════════════ */
+.win-prize-img{
+  width:58px;
+  height:58px;
+  object-fit:contain;
+  display:block;
+  filter:drop-shadow(0 4px 14px rgba(170,223,90,.45));
+}
+
 </style>
 </head>
 <body>
@@ -1651,7 +1665,7 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
           <div class="slot-prize-list" id="slot-prize-list">
             <div class="slot-prize-item available">
               <span class="slot-prize-rank">1등</span>
-              <span class="slot-prize-name">❓❓❓</span>
+              <span class="slot-prize-name">???</span>
             </div>
 
             <div class="slot-prize-item available">
@@ -1836,7 +1850,7 @@ try{
    확률: 1등 3% / 2등 7% / 3등 15% / 4등 30% / 5등 45%
 ══════════════════════════════════════ */
 const prizes=[
-  {name:'로열 패키지',   desc:'최고급 로열 패키지 혜택',   icon:'👑', sym:'👑', prob:0.03},
+  {name:'로열 패키지',   desc:'최고급 로열 패키지 혜택',   icon:'gift.png', sym:'❓', prob:0.03},
   {name:'선케어 패키지', desc:'피부를 위한 선케어 패키지', icon:'☀️', sym:'☀️', prob:0.07},
   {name:'바디 패키지',   desc:'릴랙싱 바디 패키지',       icon:'🧴', sym:'🧴', prob:0.15},
   {name:'쿨 패키지',    desc:'시원한 쿨 패키지',          icon:'❄️', sym:'❄️', prob:0.30},
@@ -2062,11 +2076,13 @@ function renderSlotPrizeList(items){
     const stock = Number(p.stock);
     const safeStock = Number.isFinite(stock) ? stock : 0;
     const statusClass = safeStock <= 0 ? 'soldout' : 'available';
+    const rankNum = Number(p.rank);
+    const displayName = rankNum === 1 ? '???' : p.name;
 
     return `
       <div class="slot-prize-item ${statusClass}" data-prize-id="${escapeHtml(p.id)}" data-stock="${safeStock}">
         <span class="slot-prize-rank">${escapeHtml(p.rank)}등</span>
-        <span class="slot-prize-name">${escapeHtml(p.name)}</span>
+        <span class="slot-prize-name">${escapeHtml(displayName)}</span>
       </div>
     `;
   }).join('');
@@ -2175,7 +2191,7 @@ const REEL_SYMS = [
   ['🧴','☕','❄️','☕','🧴','❄️','☀️','☕','❄️','❓','❄️','☕'],
 ];
 const REEL_NAMES = {
-  '❓':'로열','☀️':'선케어','🧴':'바디','❄️':'쿨','☕':'커피'
+  '❓':'???','☀️':'선케어','🧴':'바디','❄️':'쿨','☕':'커피'
 };
 const ITEM_H = 90;  // CSS .reel-item height
 let slotSpinning = false;
@@ -2365,8 +2381,17 @@ function showSlotResult(p){
 }
 function revealWin(p){
   showScreen('s-win');
-  document.getElementById('win-ring').textContent = p.icon||'🎉';
-  document.getElementById('win-prize').textContent = p.name;
+
+  const winRing = document.getElementById('win-ring');
+  const isRoyal = Number(p.rank) === 1 || p.name === '로열 패키지';
+
+  if(isRoyal){
+    winRing.innerHTML = '<img src="./gift.png" alt="로열 패키지" class="win-prize-img">';
+  }else{
+    winRing.textContent = p.icon || '🎉';
+  }
+
+  document.getElementById('win-prize').textContent = isRoyal ? '로열 패키지' : p.name;
   document.getElementById('win-desc').textContent = (p.desc || p.description || '축하합니다.')+'\n직원에게 이 화면을 보여주세요.';
   launchConfetti('cf-wrap-win');
 }
