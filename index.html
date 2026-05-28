@@ -1234,6 +1234,54 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
 }
 
 
+
+/* ════════════════════════════════════
+   MOBILE INTRO RULE + MAIN SCROLL END PATCH
+   - 모바일에서 인트로 중앙선이 위로 치우쳐 보이는 문제 보정
+   - 메인 선택창 하단 버튼 이후 불필요한 추가 스크롤 최소화
+════════════════════════════════════ */
+
+/* 폰에서만 중앙선을 살짝 아래로 내림. 태블릿/데스크톱은 기존 위치 유지 */
+@media(max-width:480px){
+  .intro-rule{
+    top:42.5%;
+  }
+}
+
+@media(max-width:390px){
+  .intro-rule{
+    top:43%;
+  }
+}
+
+/* 메인 선택창: 맨 아래에서 버튼 이후로 남는 스크롤 여백 제거 */
+#s-main{
+  overscroll-behavior-y:none;
+  scroll-padding-bottom:0;
+}
+
+#s-main .main-scroll{
+  padding-bottom:0;
+  margin-bottom:0;
+}
+
+#s-main .cta-wrap{
+  bottom:0;
+  margin-bottom:0;
+  padding:10px 16px 12px;
+}
+
+#s-main .cta-btn{
+  margin-bottom:0;
+}
+
+@media(max-height:700px){
+  #s-main .cta-wrap{
+    padding:8px 16px 10px;
+  }
+}
+
+
 </style>
 </head>
 <body>
