@@ -1419,6 +1419,48 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
   touch-action:manipulation;
 }
 
+
+
+/* ════════════════════════════════════
+   FINAL CTA FIXED BOTTOM PATCH
+   - 게임선택창의 도전하기 버튼만 화면 하단에 상시 고정
+   - 선택 영역은 버튼 뒤에 가리지 않도록 하단 여백 확보
+════════════════════════════════════ */
+#s-main{
+  padding-bottom:calc(94px + env(safe-area-inset-bottom));
+}
+
+#s-main .main-scroll{
+  padding-bottom:18px;
+}
+
+#s-main .cta-wrap{
+  position:fixed !important;
+  left:0;
+  right:0;
+  bottom:0 !important;
+  z-index:120;
+  margin:0 !important;
+  padding:10px 16px calc(14px + env(safe-area-inset-bottom)) !important;
+  background:linear-gradient(to top, var(--bg) 0%, var(--bg) 76%, rgba(246,250,240,0) 100%);
+  border-top:1px solid rgba(0,0,0,.04);
+}
+
+#s-main .cta-btn{
+  margin:0 !important;
+}
+
+@media(max-height:700px){
+  #s-main{
+    padding-bottom:calc(84px + env(safe-area-inset-bottom));
+  }
+
+  #s-main .cta-wrap{
+    padding:8px 16px calc(10px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+
 </style>
 </head>
 <body>
@@ -2327,7 +2369,7 @@ async function pullSlot(){
 
   const targetSym = wonPrize.sym;
 
-  const reelDurations = [5400, 5600, 6000];
+  const reelDurations = [5600, 5800, 6000];
   let doneCount = 0;
 
   for(let r=0;r<3;r++){
