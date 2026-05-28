@@ -148,7 +148,7 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
   border:1px solid rgba(170,223,90,.8);
   color:rgba(205,240,154,.9);
   font-family:'Outfit','Noto Sans KR',sans-serif;
-  font-size:11px;font-weight:300;letter-spacing:6px;text-transform:uppercase;
+  font-size:16px;font-weight:300;letter-spacing:6px;text-transform:uppercase;
   cursor:pointer;position:relative;overflow:hidden;
   border-radius:0;box-shadow:none;width:auto;max-width:none;margin:0;
   transition:border-color .3s,color .3s;
@@ -830,14 +830,14 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
 
 /* 시작 버튼: 기존 디자인 유지, 위치만 하단 고정 */
 #intro-enter-wrap{
-  bottom:calc(env(safe-area-inset-bottom) + clamp(28px, 5.5dvh, 56px));
+  bottom:calc(env(safe-area-inset-bottom) + clamp(36px, 5.5dvh, 68px));
 }
 
 #intro-enter-btn{
   width:auto;
   min-width:min(72vw, 240px);
-  max-width:360px;
-  padding:clamp(12px, 1.7dvh, 14px) clamp(38px, 11vw, 52px);
+  max-width:320px;
+  padding:clamp(16px, 1.7dvh, 18px) clamp(42px, 11vw, 56px);
   font-size:clamp(9px, 1.8vw, 11px);
   letter-spacing:clamp(3px, .9vw, 6px);
 }
@@ -874,7 +874,7 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
   }
 
   #intro-enter-wrap{
-    bottom:calc(env(safe-area-inset-bottom) + 24px);
+    bottom:calc(env(safe-area-inset-bottom) + 36px);
   }
 }
 
