@@ -1340,6 +1340,48 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
   pointer-events:none;
 }
 
+
+/* ════════════════════════════════════
+   GOODBYE BACK BUTTON PATCH
+   - 편안한 밤 되세요 화면 왼쪽 상단 뒤로가기
+════════════════════════════════════ */
+.goodbye-back-btn{
+  position:absolute;
+  top:calc(env(safe-area-inset-top) + 18px);
+  left:18px;
+  z-index:60;
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:14px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  color:rgba(255,255,255,.86);
+  font-size:20px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  box-shadow:0 4px 18px rgba(0,0,0,.18);
+  touch-action:manipulation;
+}
+
+.goodbye-back-btn:active{
+  transform:scale(.94);
+}
+
+@media(max-width:390px){
+  .goodbye-back-btn{
+    top:calc(env(safe-area-inset-top) + 14px);
+    left:14px;
+    width:40px;
+    height:40px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1652,6 +1694,7 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
 
 <!-- ═══ GOODBYE ═══ -->
 <div class="screen" id="s-goodbye">
+  <button class="goodbye-back-btn" type="button" onclick="backFromGoodbye(event)" aria-label="뒤로가기">←</button>
   <div class="goodbye-content">
     <div class="goodbye-icon">🌙</div>
     <div class="goodbye-title">편안한<br><em>밤 되세요</em></div>
@@ -2351,6 +2394,14 @@ function goToStamp(){ goToGoodbye(); }
    GOODBYE
 ══════════════════════════════════════ */
 function goToGoodbye(){ showScreen('s-goodbye'); }
+
+function backFromGoodbye(e){
+  if(e){
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  showScreen('s-win');
+}
 </script>
 </body>
 </html>
