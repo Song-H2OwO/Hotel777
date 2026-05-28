@@ -1519,7 +1519,7 @@ body{height:100%;background:var(--bg);color:var(--ink);font-family:'Outfit','Not
     <div class="sec-lbl">이벤트 안내</div>
     <div class="info-card">
       <div class="ic-icon">🎁</div>
-      <div><div class="ic-title">성공 시 1등 상품</div><div class="ic-text">7.77초 ±0.1초 이내로 멈추면 로열 패키지!</div></div>
+      <div><div class="ic-title">정확히 맞추면 1등 상품</div><div class="ic-text">7.77초 또는 0.00초에 정확히 멈추면 로열 패키지!</div></div>
     </div>
     <div class="info-card">
       <div class="ic-icon">🎰</div>
@@ -1841,7 +1841,8 @@ function enterApp(e){
    STATE
 ══════════════════════════════════════ */
 let mode='up', gState='idle', t0=null, rafId=null, elapsed=0;
-const TARGET=7770, TOL=100;
+const TARGET=7770, TOL=100, ACC_WINDOW=3000;
+const FIRST_PRIZE_TOL=5; // 1등은 화면 표시 기준으로 정확히 7.77초/0.00초일 때만 인정
 let isSuccess=false;
 
 /* ══════════════════════════════════════
@@ -1929,8 +1930,19 @@ function goToGame(e){
   document.getElementById('t-target').textContent=u?'7.77초':'0.00초';
   document.getElementById('g-hint').textContent=u?'7.77초가 됐을 때 STOP을 누르세요':'0초가 됐을 때 STOP을 누르세요';
   document.getElementById('tlbl-s').textContent=u?'0.00s':'7.77s';
-  document.getElementById('tlbl-e').textContent=u?'10.00s':'0.00s';
-  document.getElementById('t-mk').style.display=u?'block':'none';
+  document.getElementById('tlbl-e').textContent=u?'10.00s':'-3.00s';
+
+  // 진행 바 기준점 표시
+  // Ascend: 0.00 → 10.00 중 7.77 위치
+  // Descend: 7.77 → -3.00 중 0.00 위치
+  const marker=document.getElementById('t-mk');
+  if(marker){
+    const tip=marker.querySelector('.track-tip');
+    marker.style.display='block';
+    marker.style.left=u?'77.7%':((TARGET/(TARGET+3000))*100).toFixed(2)+'%';
+    if(tip) tip.textContent=u?'7.77':'0.00';
+  }
+
   setBtn('idle');
 
   setTimeout(()=>{ if(btn) btn.disabled = false; }, 450);
@@ -1979,11 +1991,12 @@ function tick(now){
     f.className='track-fill'+(elapsed>TARGET+TOL?' past':'');
     if(elapsed>=15000){gState='done';return showResult(elapsed);}
   } else {
-    const rem=Math.max(TARGET-elapsed,0);
+    const rem=TARGET-elapsed;
     n.textContent=(rem/1000).toFixed(2);
-    n.className='timer-num'+(rem<350?' near':'');
-    f.style.width=(100-rem/TARGET*100)+'%';
-    if(elapsed>=TARGET+2000){gState='done';return showResult(elapsed);}
+    n.className='timer-num'+(elapsed>TARGET?' past':Math.abs(rem)<350?' near':'');
+    f.style.width=Math.min(elapsed/(TARGET+3000)*100,100)+'%';
+    f.className='track-fill'+(elapsed>TARGET?' past':'');
+    if(elapsed>=TARGET+3000){gState='done';return showResult(elapsed);}
   }
   rafId=requestAnimationFrame(tick);
 }
@@ -1994,25 +2007,28 @@ function tick(now){
 function showResult(ms){
   const u=mode==='up';
   const absDiff=u?Math.abs(ms-TARGET):Math.abs(TARGET-ms);
-  const displayMs=u?ms:Math.max(TARGET-ms,0);
-  const success=absDiff<=TOL, accuracy=Math.max(0,Math.round((1-absDiff/TOL)*100));
+  const displayMs=u?ms:(TARGET-ms);
+  const success=absDiff<=FIRST_PRIZE_TOL;
+  const accuracy=Math.max(0,Math.min(100,100-(absDiff/ACC_WINDOW*100)));
+  const accuracyText=accuracy.toFixed(1).replace(/\.0$/,'')+'%';
   isSuccess=success; showScreen('s-result');
   document.getElementById('res-hero').className='res-hero '+(success?'success':'fail');
   document.getElementById('res-tag').textContent=success?'✓ 성공':'✗ 아쉽네요';
   document.getElementById('res-hl').textContent=success?'Perfect!':'Almost!';
-  document.getElementById('res-sub').textContent=success?'정확한 타이밍입니다 🎉':`목표까지 ${(absDiff/1000).toFixed(3)}초 차이났어요`;
+  document.getElementById('res-sub').textContent=success?'정확히 맞췄습니다 🎉':`목표까지 ${(absDiff/1000).toFixed(3)}초 차이났어요`;
   document.getElementById('r-time').textContent=(displayMs/1000).toFixed(3)+'s';
   document.getElementById('r-time-sub').textContent=u?'경과 시간':'남은 시간';
   document.getElementById('r-time-sub').className='tc-sub';
   document.getElementById('r-diff').textContent=(absDiff/1000).toFixed(3)+'s';
-  document.getElementById('r-diff-sub').textContent=success?'허용 범위 내':'범위 초과';
+  document.getElementById('r-diff-sub').textContent=success?'정확히 일치':'정확도 부족';
   document.getElementById('r-diff-sub').className='tc-sub '+(success?'good':'bad');
   const an=document.getElementById('acc-num');
-  an.textContent=success?accuracy+'%':'—'; an.className='acc-num'+(success?'':' fail');
+  an.textContent=accuracyText;
+  an.className='acc-num'+(success?'':' fail');
   document.getElementById('acc-track').className='acc-track'+(success?'':' fail');
   const ab=document.getElementById('acc-bar');
   ab.className='acc-bar '+(success?'good':'bad');
-  setTimeout(()=>{ab.style.width=(success?accuracy:Math.min(100-accuracy+15,70))+'%';},150);
+  setTimeout(()=>{ab.style.width=accuracy+'%';},150);
   document.getElementById('banner-slot').innerHTML=success
     ?`<div class="success-banner"><div class="sb-ico">🏆</div><div class="sb-txt"><strong>1등 당첨!</strong>상자를 열어 보상을 확인하세요.</div></div>`
     :`<div class="success-banner" style="background:var(--pink-50);border-color:var(--pink-200)"><div class="sb-ico">🎰</div><div class="sb-txt" style="color:var(--pink-500)"><strong>아쉽지만 슬롯 기회!</strong>행운의 슬롯머신에 도전하세요.</div></div>`;
@@ -2311,7 +2327,7 @@ async function pullSlot(){
 
   const targetSym = wonPrize.sym;
 
-  const reelDurations = [2600, 3300, 4000];
+  const reelDurations = [5400, 5600, 6000];
   let doneCount = 0;
 
   for(let r=0;r<3;r++){
