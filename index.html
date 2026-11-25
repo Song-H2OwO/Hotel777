@@ -2156,8 +2156,22 @@ function showResult(ms){
   ab2.style.display='flex'; ab2.className='res-action-btn '+(success?'success-btn':'fail-btn');
   document.getElementById('res-action-txt').textContent=success?'🎁 상자 열기':'🎰 슬롯 돌리기';
 }
-function handleResultAction(){
-  if(isSuccess){ showScreen('s-success-box'); launchConfetti('cf-wrap-success'); }
+async function handleResultAction(){
+  if(isSuccess){
+    showScreen('s-success-box');
+    launchConfetti('cf-wrap-success');
+    const image = document.querySelector('#s-success-box .gift-box-img');
+    const requestImage = image.dataset.request = String(Number(image.dataset.request || 0) + 1);
+    image.onerror = () => { image.onerror = null; image.src = './gift-cutout.png'; };
+    image.src = './gift-cutout.png';
+    const items = await loadSlotPrizeList();
+    if(image.dataset.request !== requestImage) return;
+    const prize = items.find(item => Number(item.rank) === 1);
+    const value = String(prize?.image || '').trim();
+    if(/^(https?:\/\/|\.\.?\/|\/)/i.test(value) || /\.(png|jpe?g|webp|gif|avif)([?#].*)?$/i.test(value)){
+      image.src = new URL(value, document.baseURI).href;
+    }
+  }
   else{ showScreen('s-roulette'); initSlot(); }
 }
 
@@ -2270,6 +2284,7 @@ function mergeDbPrizeForSlot(dbPrize){
     rank:rank,
     name:dbPrize.name || meta.name,
     desc:dbPrize.description || meta.desc,
+    image:dbPrize.image,
     stock:Number(dbPrize.stock ?? 0),
     enabled:dbPrize.enabled !== false
   };
@@ -2552,11 +2567,7 @@ function revealWin(p){
   const winRing = document.getElementById('win-ring');
   const isRoyal = Number(p.rank) === 1 || p.name === '로열 패키지';
 
-  if(isRoyal){
-    winRing.innerHTML = '<img src="./gift-cutout.png" alt="로열 패키지" class="win-prize-img">';
-  }else{
-    winRing.textContent = p.icon || '🎉';
-  }
+  renderPrizeImage(winRing, p);
 
   document.getElementById('win-prize').textContent = isRoyal ? '로열 패키지' : p.name;
   document.getElementById('win-desc').textContent = (p.desc || p.description || '축하합니다.')+'\n직원에게 이 화면을 보여주세요.';
@@ -2581,6 +2592,23 @@ function launchConfetti(id){
    STAMP SKIP
 ══════════════════════════════════════ */
 function goToStamp(){ goToGoodbye(); }
+
+function renderPrizeImage(container, prize){
+  const value = String(prize.image || prize.icon || '').trim();
+  const isImage = /^(https?:\/\/|\.\.?\/|\/)/i.test(value) || /\.(png|jpe?g|webp|gif|avif)([?#].*)?$/i.test(value);
+  const royal = Number(prize.rank) === 1 || prize.name === '로열 패키지';
+  container.textContent = '';
+  if(isImage || royal){
+    const img = document.createElement('img');
+    img.className = 'win-prize-img';
+    img.alt = prize.name || '상품';
+    img.addEventListener('error', () => { container.textContent = '🎁'; }, {once:true});
+    img.src = isImage ? new URL(value, document.baseURI).href : './gift-cutout.png';
+    container.appendChild(img);
+  }else{
+    container.textContent = value || '🎁';
+  }
+}
 
 /* ══════════════════════════════════════
    GOODBYE
