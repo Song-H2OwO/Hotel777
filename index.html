@@ -2602,7 +2602,7 @@ function renderPrizeImage(container, prize){
     const img = document.createElement('img');
     img.className = 'win-prize-img';
     img.alt = prize.name || '상품';
-    img.addEventListener('error', () => { container.textContent = '🎁'; }, {once:true});
+    img.addEventListener('error', () => { img.src = './gift-cutout.png'; }, {once:true});
     img.src = isImage ? new URL(value, document.baseURI).href : './gift-cutout.png';
     container.appendChild(img);
   }else{
